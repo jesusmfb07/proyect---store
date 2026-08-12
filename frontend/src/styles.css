@@ -1,7 +1,7 @@
 :root {
   --primary: #b71c1c;
   --primary-dark: #8f1414;
-  --accent: #e8a33d;
+  --accent: #5c5c5c;
   --bg: #f5f6f8;
   --text: #1c2430;
   --muted: #6b7280;
@@ -53,7 +53,7 @@ body {
 .cart-button {
   position: relative;
   background: var(--accent);
-  color: #223;
+  color: #fff;
   border: none;
   padding: 9px 18px;
   border-radius: 999px;
@@ -118,7 +118,7 @@ body {
 }
 
 .btn-whatsapp {
-  background: #25d366;
+  background: #4ee081;
   color: #fff;
 }
 
@@ -177,7 +177,7 @@ body {
 
 .btn-primary {
   background: var(--accent);
-  color: #223;
+  color: #fff;
 }
 
 .catalog {
@@ -364,7 +364,7 @@ body {
 }
 
 .btn-primary.added {
-  background: #2e9e5b;
+  background: #46b870;
   color: #fff;
 }
 
@@ -417,7 +417,7 @@ body {
 }
 
 .footer-links a {
-  color: var(--accent);
+  color: #d6d6d6;
   text-decoration: none;
   font-weight: 600;
 }
