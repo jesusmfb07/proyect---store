@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const config = require('./config.json');
+const store = require('./store');
 const app = express();
 
 const JWT_SECRET = process.env.JWT_SECRET || config.jwtSecret;
@@ -15,21 +16,10 @@ app.use(express.json());
 
 const DATA_DIR = path.join(__dirname, 'data');
 const PRODUCTS_FILE = path.join(DATA_DIR, 'products.json');
-const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
 
 const products = JSON.parse(fs.readFileSync(PRODUCTS_FILE, 'utf-8'));
 
-function readOrders() {
-  try {
-    return JSON.parse(fs.readFileSync(ORDERS_FILE, 'utf-8'));
-  } catch {
-    return [];
-  }
-}
-
-function writeOrders(orders) {
-  fs.writeFileSync(ORDERS_FILE, JSON.stringify(orders, null, 2), 'utf-8');
-}
+store.initStore();
 
 function formatMoney(amount) {
   return `${config.currency} ${Number(amount).toFixed(2)}`;
@@ -102,11 +92,13 @@ app.get('/api/auth/me', authRequired, (req, res) => {
   res.json({ username: req.user.username, name: req.user.name });
 });
 
-app.get('/api/orders', authRequired, (req, res) => {
-  const orders = readOrders().sort(
-    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-  );
-  res.json(orders);
+app.get('/api/orders', authRequired, async (req, res, next) => {
+  try {
+    const orders = await store.getOrders();
+    res.json(orders);
+  } catch (err) {
+    next(err);
+  }
 });
 
 app.get('/api/products', (req, res) => {
@@ -122,61 +114,63 @@ app.get('/api/config', (req, res) => {
   });
 });
 
-app.post('/api/orders', (req, res) => {
-  const { customer, items } = req.body;
+app.post('/api/orders', async (req, res, next) => {
+  try {
+    const { customer, items } = req.body;
 
-  if (!customer || !customer.name || !customer.phone) {
-    return res.status(400).json({ error: 'Faltan datos del cliente (nombre y teléfono).' });
-  }
-  if (!Array.isArray(items) || items.length === 0) {
-    return res.status(400).json({ error: 'El carrito está vacío.' });
-  }
-
-  const normalizedItems = items.map((item) => {
-    const product = products.find((p) => p.id === item.productId);
-    if (!product || !(item.size in product.sizes)) {
-      throw new Error(`Producto inválido: ${item.productId}`);
+    if (!customer || !customer.name || !customer.phone) {
+      return res.status(400).json({ error: 'Faltan datos del cliente (nombre y teléfono).' });
     }
-    const qty = Math.max(1, parseInt(item.qty, 10) || 1);
-    const unitPrice = product.sizes[item.size];
-    return {
-      productId: product.id,
-      name: product.name,
-      thickness: product.thickness,
-      size: item.size,
-      qty,
-      unitPrice,
-      lineTotal: Number((unitPrice * qty).toFixed(2)),
+    if (!Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({ error: 'El carrito está vacío.' });
+    }
+
+    const normalizedItems = items.map((item) => {
+      const product = products.find((p) => p.id === item.productId);
+      if (!product || !(item.size in product.sizes)) {
+        throw new Error(`Producto inválido: ${item.productId}`);
+      }
+      const qty = Math.max(1, parseInt(item.qty, 10) || 1);
+      const unitPrice = product.sizes[item.size];
+      return {
+        productId: product.id,
+        name: product.name,
+        thickness: product.thickness,
+        size: item.size,
+        qty,
+        unitPrice,
+        lineTotal: Number((unitPrice * qty).toFixed(2)),
+      };
+    });
+
+    const total = Number(normalizedItems.reduce((acc, it) => acc + it.lineTotal, 0).toFixed(2));
+
+    const order = {
+      id: `PED-${Date.now()}`,
+      createdAt: new Date().toISOString(),
+      customer: {
+        name: String(customer.name),
+        phone: String(customer.phone),
+        address: String(customer.address || ''),
+        notes: String(customer.notes || ''),
+      },
+      items: normalizedItems,
+      total,
+      paymentMethod: 'Yape',
     };
-  });
 
-  const total = Number(normalizedItems.reduce((acc, it) => acc + it.lineTotal, 0).toFixed(2));
+    await store.saveOrder(order);
 
-  const order = {
-    id: `PED-${Date.now()}`,
-    createdAt: new Date().toISOString(),
-    customer: {
-      name: String(customer.name),
-      phone: String(customer.phone),
-      address: String(customer.address || ''),
-      notes: String(customer.notes || ''),
-    },
-    items: normalizedItems,
-    total,
-    paymentMethod: 'Yape',
-  };
-
-  const orders = readOrders();
-  orders.push(order);
-  writeOrders(orders);
-
-  const message = buildOrderMessage(order);
-  res.json({
-    orderId: order.id,
-    total,
-    whatsappUrl: buildWhatsAppUrl(message),
-    message,
-  });
+    const message = buildOrderMessage(order);
+    res.json({
+      orderId: order.id,
+      total,
+      whatsappUrl: buildWhatsAppUrl(message),
+      message,
+    });
+  } catch (err) {
+    next(err);
+  }
 });
 
 app.use((err, req, res, next) => {

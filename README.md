@@ -154,8 +154,20 @@ git push -u origin main
 
 - **URL permanente y gratuita**: funciona 24/7 sin que tu PC esté encendida.
 - El plan **Free de Render** "duerme" el backend tras ~15 min sin visitas; la primera visita puede tardar unos 10-30 segundos en despertar. Se soluciona comprando el plan pago (~7 USD/mes) o agregando un "keep alive".
-- Los pedidos se guardan en `data/orders.json` dentro del contenedor de Render: se pierden si el servicio se reinicia. Para historial permanente se usa una base de datos gratis (te lo configuro si lo necesitas).
+- Los pedidos se guardan en una **base de datos PostgreSQL** (gratis) cuando existe la variable de entorno `DATABASE_URL`. Si no existe, se usa `data/orders.json` (modo local, los pedidos se pierden al reiniciar).
 - GitHub Pages con las rutas tipo `#/admin` no necesita configuración extra de servidor.
+
+## Base de datos PostgreSQL (para que los pedidos nunca se pierdan)
+
+El backend usa **PostgreSQL** si existe la variable de entorno `DATABASE_URL` (en Render se configura en *Environment*). Si no existe, cae en `data/orders.json` (modo local).
+
+1. Crea una base gratis en **Neon** (https://neon.tech, plan free permanente) o en **Render** (New + → PostgreSQL, plan Free — ojo: la versión gratis de Render expira a los 30 días).
+2. Copia el **connection string** (algo como `postgresql://usuario:clave@host/db?sslmode=require`).
+3. En Render, en tu servicio `colchoneria-backend`: **Environment** → **Add Environment Variable**:
+   - Key: `DATABASE_URL`
+   - Value: el connection string
+4. **Save Changes** (vuelve a desplegar solo).
+5. La tabla `orders` se crea automáticamente al iniciar el backend.
 
 ## Ejecutar (desarrollo)
 
