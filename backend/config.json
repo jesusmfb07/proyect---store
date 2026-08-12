@@ -1,0 +1,15 @@
+{
+  "whatsappNumber": "51951279250",
+  "storeName": "Colchonería Paraíso",
+  "storeAddress": "Cusco",
+  "currency": "S/",
+  "serverPort": 3001,
+  "jwtSecret": "nUl8j0WYMqLAtaRFf3D9HhvXo1w6VcSbIiCGkyx54d2ZOPJp",
+  "users": [
+    {
+      "username": "admin",
+      "passwordHash": "$2b$10$5PpklyAFiISpE3uslO6bbeSxZl.tofKY/dPdmItawafp0p2/KVIuK",
+      "name": "Administrador"
+    }
+  ]
+}

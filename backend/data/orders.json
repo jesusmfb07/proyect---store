@@ -1,0 +1,25 @@
+[
+  {
+    "id": "PED-1786552501592",
+    "createdAt": "2026-08-12T16:35:01.592Z",
+    "customer": {
+      "name": "juan",
+      "phone": "986767855",
+      "address": "wanchaq",
+      "notes": ""
+    },
+    "items": [
+      {
+        "productId": "paraiso-consul-plus",
+        "name": "Cónsul Plus",
+        "thickness": null,
+        "size": "1.5 Plazas",
+        "qty": 1,
+        "unitPrice": 250.6,
+        "lineTotal": 250.6
+      }
+    ],
+    "total": 250.6,
+    "paymentMethod": "Yape"
+  }
+]
