@@ -15,7 +15,7 @@ import './styles.css';
 
 export default function App() {
   const [products, setProducts] = useState([]);
-  const [storeName, setStoreName] = useState('Colchonería Paraíso');
+  const [storeName, setStoreName] = useState('Distribuidora oficial Paraíso');
   const [storeAddress, setStoreAddress] = useState('');
   const [currency, setCurrency] = useState('S/');
   const [whatsappNumber, setWhatsappNumber] = useState('');

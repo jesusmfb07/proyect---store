@@ -5,12 +5,12 @@ export default function Hero({ whatsappNumber }) {
   return (
     <section className="hero">
       <div className="hero-inner">
-        <span className="hero-eyebrow">Colchones Paraíso Resorts · Espumas Zebra</span>
+        <span className="hero-eyebrow">Distribuidora oficial · Paraíso Resorts y Espumas Zebra</span>
         <h1>El descanso que tu cuerpo merece</h1>
         <p>
-          Colchones de resortes y espumas de alta densidad, con la calidad que
-          respalda a dos de las marcas más confiables del mercado. Compra en línea
-          y recibe tu pedido en casa.
+          Distribuidores oficiales de colchones de resortes y espumas de alta
+          densidad, con la calidad que respalda a dos de las marcas más confiables
+          del mercado. Compra en línea y recibe tu pedido en casa.
         </p>
         <div className="hero-actions">
           <a href="#catalogo" className="btn btn-primary">

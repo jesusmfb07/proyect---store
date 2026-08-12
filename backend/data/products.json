@@ -6,6 +6,8 @@
     "category": "resortes",
     "type": "Resortes",
     "thickness": null,
+    "image": "images/colchon-01.jpg",
+    "discount": 30,
     "sizes": {
       "1.5 Plazas": 260.0,
       "2 Plazas": 320.0
@@ -18,6 +20,8 @@
     "category": "resortes",
     "type": "Resortes",
     "thickness": null,
+    "image": "images/colchon-02.jpg",
+    "discount": 20,
     "sizes": {
       "1.5 Plazas": 270.0,
       "2 Plazas": 340.0
@@ -30,6 +34,8 @@
     "category": "resortes",
     "type": "Resortes",
     "thickness": null,
+    "image": "images/colchon-03.jpg",
+    "discount": 50,
     "sizes": {
       "1.5 Plazas": 310.0,
       "2 Plazas": 400.0
@@ -42,6 +48,8 @@
     "category": "resortes",
     "type": "Resortes",
     "thickness": null,
+    "image": "images/colchon-04.jpg",
+    "discount": 30,
     "sizes": {
       "1.5 Plazas": 440.0,
       "2 Plazas": 530.0
@@ -54,6 +62,8 @@
     "category": "resortes",
     "type": "Resortes",
     "thickness": null,
+    "image": "images/colchon-05.jpg",
+    "discount": 50,
     "sizes": {
       "1.5 Plazas": 470.0,
       "2 Plazas": 570.0
@@ -66,6 +76,8 @@
     "category": "resortes",
     "type": "Resortes",
     "thickness": null,
+    "image": "images/colchon-06.jpg",
+    "discount": 20,
     "sizes": {
       "1.5 Plazas": 500.0,
       "2 Plazas": 620.0
@@ -78,6 +90,8 @@
     "category": "resortes",
     "type": "Resortes",
     "thickness": null,
+    "image": "images/colchon-07.jpg",
+    "discount": 50,
     "sizes": {
       "1.5 Plazas": 560.0,
       "2 Plazas": 700.0
@@ -90,6 +104,8 @@
     "category": "resortes",
     "type": "Resortes",
     "thickness": null,
+    "image": "images/colchon-08.jpg",
+    "discount": 30,
     "sizes": {
       "1.5 Plazas": 750.0,
       "2 Plazas": 900.0
@@ -102,6 +118,8 @@
     "category": "espumas",
     "type": "Espuma",
     "thickness": "5\"",
+    "image": "images/colchon-09.jpg",
+    "discount": 20,
     "sizes": {
       "1.5 Plazas": 143.5,
       "2 Plazas": 217.6
@@ -114,6 +132,8 @@
     "category": "espumas",
     "type": "Espuma",
     "thickness": "7\"",
+    "image": "images/colchon-10.jpg",
+    "discount": 30,
     "sizes": {
       "1 Plaza": 210.0,
       "1.5 Plazas": 200.0,
@@ -127,6 +147,8 @@
     "category": "espumas",
     "type": "Espuma",
     "thickness": "8\"",
+    "image": "images/colchon-11.jpg",
+    "discount": 50,
     "sizes": {
       "1.5 Plazas": 225.0,
       "2 Plazas": 320.0
@@ -139,6 +161,8 @@
     "category": "espumas",
     "type": "Espuma",
     "thickness": "10\"",
+    "image": "images/colchon-12.jpg",
+    "discount": 20,
     "sizes": {
       "1.5 Plazas": 270.0,
       "2 Plazas": 330.0
@@ -151,6 +175,8 @@
     "category": "espumas",
     "type": "Espuma",
     "thickness": "8\"",
+    "image": "images/colchon-13.jpg",
+    "discount": 50,
     "sizes": {
       "1.5 Plazas": 270.0,
       "2 Plazas": 340.0
@@ -163,6 +189,8 @@
     "category": "espumas",
     "type": "Espuma",
     "thickness": "10\"",
+    "image": "images/colchon-14.jpg",
+    "discount": 30,
     "sizes": {
       "1.5 Plazas": 330.0,
       "2 Plazas": 410.0
@@ -175,6 +203,8 @@
     "category": "espumas",
     "type": "Espuma",
     "thickness": "8\"",
+    "image": "images/colchon-15.jpg",
+    "discount": 20,
     "sizes": {
       "1.5 Plazas": 380.0,
       "2 Plazas": 460.0
@@ -187,6 +217,8 @@
     "category": "espumas",
     "type": "Espuma",
     "thickness": "10\"",
+    "image": "images/colchon-16.jpg",
+    "discount": 50,
     "sizes": {
       "1.5 Plazas": 390.0,
       "2 Plazas": 480.0
@@ -199,6 +231,8 @@
     "category": "espumas",
     "type": "Espuma",
     "thickness": "10\"",
+    "image": "images/colchon-17.jpg",
+    "discount": 30,
     "sizes": {
       "1.5 Plazas": 430.0,
       "2 Plazas": 520.0

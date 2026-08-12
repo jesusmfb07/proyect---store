@@ -7,7 +7,7 @@ export default function Footer({ storeName, storeAddress }) {
       <div className="footer-inner">
         <div>
           <strong>{storeName}</strong>
-          <p>Colchones de resortes y espumas de alta calidad.</p>
+          <p>Distribuidor oficial de colchones de resortes y espumas de alta calidad.</p>
           {storeAddress && <p className="footer-address">📍 {storeAddress}, Perú</p>}
         </div>
         <div className="footer-links">
