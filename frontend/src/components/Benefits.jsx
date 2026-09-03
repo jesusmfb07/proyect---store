@@ -4,7 +4,7 @@ const BENEFITS = [
   {
     icon: '🚚',
     title: 'Entrega a domicilio',
-    text: 'Llevamos tu colchón hasta la puerta de tu casa, en Lima y todo el Perú.',
+    text: 'Llevamos tu colchón hasta la puerta de tu casa.',
   },
   {
     icon: '💳',
