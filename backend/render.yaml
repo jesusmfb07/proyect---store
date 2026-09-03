@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: colchoneria-backend
-    runtime: node
-    rootDir: backend
-    buildCommand: npm install
-    startCommand: node server.js
-    healthCheckPath: /api/products
-    plan: free

@@ -1,52 +1,49 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
-import { apiFetch } from '../config';
+import { money, waNumberOnly, SITE_NAME, SITE_ADDRESS } from '../config';
+import { STORE_CONFIG } from '../data/products';
 
-export default function CheckoutModal({ open, currency, onClose }) {
+export default function CheckoutModal({ open, onClose }) {
   const { items, total, dispatch } = useCart();
   const [form, setForm] = useState({ name: '', phone: '', address: '', notes: '' });
-  const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
-  const [error, setError] = useState('');
 
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
-  const submit = async (e) => {
+  const submit = (e) => {
     e.preventDefault();
     if (items.length === 0) return;
-    setError('');
-    setSending(true);
-    try {
-      const res = await apiFetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          customer: form,
-          items: items.map((i) => ({
-            productId: i.productId,
-            size: i.size,
-            qty: i.qty,
-          })),
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Error al crear el pedido.');
-      dispatch({ type: 'CLEAR' });
-      setDone(true);
-      setTimeout(() => window.open(data.whatsappUrl, '_blank'), 300);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setSending(false);
-    }
+
+    const lines = [];
+    lines.push(`🛒 *NUEVO PEDIDO - ${SITE_NAME}*`);
+    lines.push(`📅 ${new Date().toLocaleString('es-PE')}`);
+    if (SITE_ADDRESS) lines.push(`📍 ${SITE_ADDRESS}`);
+    lines.push('-----------------------------------');
+    items.forEach((item, i) => {
+      lines.push(
+        `${i + 1}. ${item.name} - ${item.size}\n   Cantidad: ${item.qty} x ${money(item.unitPrice)} = ${money(item.unitPrice * item.qty)}`
+      );
+    });
+    lines.push('-----------------------------------');
+    lines.push(`💰 *TOTAL: ${money(total)}*`);
+    lines.push('-----------------------------------');
+    lines.push(`👤 *Nombre:* ${form.name}`);
+    lines.push(`📞 *Teléfono:* ${form.phone}`);
+    lines.push(`🏠 *Dirección:* ${form.address || 'Recoger en tienda'}`);
+    if (form.notes) lines.push(`📝 *Notas:* ${form.notes}`);
+    lines.push(`💳 *Método de pago:* Yape`);
+
+    const url = `https://wa.me/${waNumberOnly()}?text=${encodeURIComponent(lines.join('\n'))}`;
+
+    dispatch({ type: 'CLEAR' });
+    setDone(true);
+    setForm({ name: '', phone: '', address: '', notes: '' });
+    setTimeout(() => window.open(url, '_blank'), 300);
   };
 
   const close = () => {
-    if (!sending) {
-      setDone(false);
-      setError('');
-      onClose();
-    }
+    setDone(false);
+    onClose();
   };
 
   return (
@@ -73,7 +70,7 @@ export default function CheckoutModal({ open, currency, onClose }) {
               </button>
             </div>
             <div className="modal-total">
-              Total a pagar: <strong>{currency} {Number(total).toFixed(2)}</strong>
+              Total a pagar: <strong>{money(total)}</strong>
               <span className="modal-total-note">Pago por Yape</span>
             </div>
             <form onSubmit={submit}>
@@ -113,13 +110,10 @@ export default function CheckoutModal({ open, currency, onClose }) {
                   placeholder="Ej: entregar después de las 5pm"
                 />
               </label>
-              {error && <p className="form-error">{error}</p>}
-              <button className="btn btn-primary" disabled={sending}>
-                {sending ? 'Enviando…' : 'Enviar pedido por WhatsApp'}
-              </button>
+              <button className="btn btn-primary">Enviar pedido por WhatsApp</button>
               <p className="hint">
-                Tu pedido se enviará a nuestro WhatsApp. Ahí te confirmaremos la
-                disponibilidad, el costo de envío y el pago por Yape.
+                Tu pedido se enviará a nuestro WhatsApp ({STORE_CONFIG.whatsappNumber}). Ahí te
+                confirmaremos la disponibilidad, el costo de envío y el pago por Yape.
               </p>
             </form>
           </>

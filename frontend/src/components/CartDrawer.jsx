@@ -1,11 +1,8 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
+import { money } from '../config';
 
-function money(n, currency) {
-  return `${currency} ${Number(n).toFixed(2)}`;
-}
-
-export default function CartDrawer({ open, currency, onClose, onCheckout }) {
+export default function CartDrawer({ open, onClose, onCheckout }) {
   const { items, total, dispatch } = useCart();
 
   return (
@@ -31,7 +28,7 @@ export default function CartDrawer({ open, currency, onClose, onCheckout }) {
                     </strong>
                     <span>{item.size}</span>
                     <span>
-                      {money(item.unitPrice, currency)} c/u
+                      {money(item.unitPrice)} c/u
                     </span>
                   </div>
                   <div className="qty">
@@ -71,7 +68,7 @@ export default function CartDrawer({ open, currency, onClose, onCheckout }) {
             <div className="drawer-foot">
               <div className="total">
                 <span>Total</span>
-                <strong>{money(total, currency)}</strong>
+                <strong>{money(total)}</strong>
               </div>
               <button className="btn btn-primary" onClick={onCheckout}>
                 Continuar

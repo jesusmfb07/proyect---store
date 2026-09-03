@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { waNumberOnly } from '../config';
 
 export default function Footer({ storeName, storeAddress }) {
   return (
@@ -12,7 +12,13 @@ export default function Footer({ storeName, storeAddress }) {
         </div>
         <div className="footer-links">
           <span>Venta y asesoría por WhatsApp</span>
-          <Link to="/admin">Acceso vendedores</Link>
+          <a
+            href={`https://wa.me/${waNumberOnly()}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Escríbenos por WhatsApp
+          </a>
         </div>
       </div>
     </footer>
